@@ -15,6 +15,15 @@ module MlbClient
       scoreboard.dig("data", "games", "game")
     end
 
+    def games
+      fetch.map do |game|
+        Game.new(
+          Team.new(game["home_team_name"]),
+          Team.new(game["away_team_name"])
+        )
+      end
+    end
+
     private
 
     # year_2015/month_10/day_12/master_scoreboard.json

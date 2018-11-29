@@ -1,4 +1,6 @@
 module MlbClient
+  require 'net/http'
+
   class Base
     BASE_URL = "http://gdx.mlb.com"
 

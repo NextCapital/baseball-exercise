@@ -11,7 +11,7 @@ class App extends Component {
 
   // TODO: This should probably be moved to client.js
   getData(relativePath) {
-    client.get(relativePath).then(({ data, status }) => {
+    client.get(relativePath).then(({ data }) => {
       this.setState({ games: data });
     });
   }

@@ -1,3 +1,7 @@
+# All
+# Ignore vim .swp files
+*.swp
+
 # Server
 # Ignore bundler config.
 /server/.bundle

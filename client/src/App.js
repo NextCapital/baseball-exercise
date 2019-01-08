@@ -1,5 +1,6 @@
+import map from 'lodash/map'
 import React, { Component } from 'react';
-import client from './client';
+import { getGames } from './client';
 import './App.css';
 
 class App extends Component {
@@ -9,23 +10,17 @@ class App extends Component {
     this.state = { games: [] };
   }
 
-  // TODO: This should probably be moved to client.js
-  getData(relativePath) {
-    client.get(relativePath).then(({ data }) => {
-      this.setState({ games: data });
-    });
-  }
-
   render() {
-    // TODO: This should also probably be in client.js
-    const getGames = () => {
-      this.getData('games/index');
+    const setGames = () => {
+      getGames().then((games) => {
+        this.setState({ games });
+      });
     };
 
     // TODO: This should likely be a stateless, 'Game' component
-    const renderGame = ({ away_team, home_team }) => {
+    const renderGame = ({ awayTeam, homeTeam }, index) => {
       return (
-        <div>{`${away_team.name} @ ${home_team.name}`}</div>
+        <div key={ index }>{`${awayTeam.name} @ ${homeTeam.name}`}</div>
       );
     };
 
@@ -35,13 +30,13 @@ class App extends Component {
         return (<div>No games to display</div>);
       }
 
-      return games.map(renderGame);
+      return map(games, renderGame);
     };
 
     return (
       <div className="App">
         { renderGames(this.state.games) }
-        <button onClick={ getGames }>Get games</button>
+        <button onClick={ setGames }>Get games</button>
       </div>
     );
   }

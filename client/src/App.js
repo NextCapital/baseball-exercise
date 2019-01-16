@@ -1,6 +1,8 @@
 import map from 'lodash/map'
 import React, { Component } from 'react';
 import { getGames } from './client';
+
+import Game from './elements/Game/Game.jsx';
 import './App.css';
 
 class App extends Component {
@@ -17,20 +19,13 @@ class App extends Component {
       });
     };
 
-    // TODO: This should likely be a stateless, 'Game' component
-    const renderGame = ({ awayTeam, homeTeam }, index) => {
-      return (
-        <div key={ index }>{`${awayTeam.name} @ ${homeTeam.name}`}</div>
-      );
-    };
-
-    // TODO: This should also probably be its own, stateless component
+    // TODO: This should probably be its own, stateless component
     const renderGames = (games = []) => {
       if (games.length === 0) {
         return (<div>No games to display</div>);
       }
 
-      return map(games, renderGame);
+      return map(games, (game, i) => <Game key={ i } { ...game }/>);
     };
 
     return (

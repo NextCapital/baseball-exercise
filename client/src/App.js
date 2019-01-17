@@ -1,8 +1,7 @@
-import map from 'lodash/map'
 import React, { Component } from 'react';
 import { getGames } from './client';
 
-import Game from './elements/Game/Game.jsx';
+import Schedule from './containers/Schedule/Schedule.jsx'
 import './App.css';
 
 class App extends Component {
@@ -19,18 +18,9 @@ class App extends Component {
       });
     };
 
-    // TODO: This should probably be its own, stateless component
-    const renderGames = (games = []) => {
-      if (games.length === 0) {
-        return (<div>No games to display</div>);
-      }
-
-      return map(games, (game, i) => <Game key={ i } { ...game }/>);
-    };
-
     return (
       <div className="App">
-        { renderGames(this.state.games) }
+        <Schedule games={ this.state.games } />
         <button onClick={ setGames }>Get games</button>
       </div>
     );
